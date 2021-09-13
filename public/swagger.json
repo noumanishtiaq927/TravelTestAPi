@@ -1,0 +1,402 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"ISaveBussResponse": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"bussName": {
+						"type": "string"
+					},
+					"bussSeats": {
+						"type": "number",
+						"format": "double"
+					},
+					"bussBookingDates": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"_id",
+					"bussName",
+					"bussSeats",
+					"bussBookingDates"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ISaveBussRequest": {
+				"properties": {
+					"bussName": {
+						"type": "string"
+					},
+					"bussSeats": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"bussName",
+					"bussSeats"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IBusErrorResponse": {
+				"properties": {
+					"error": {
+						"properties": {
+							"message": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"message"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"error"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IUpdateBussResponse": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"bussName": {
+						"type": "string"
+					},
+					"bussSeats": {
+						"type": "number",
+						"format": "double"
+					},
+					"bussBookingDates": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"_id",
+					"bussName",
+					"bussSeats",
+					"bussBookingDates"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IUpdateBussRequest": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"bussName": {
+						"type": "string"
+					},
+					"bussSeats": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"_id",
+					"bussName",
+					"bussSeats"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IDeleteBussResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IDeleteBussRequest": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"_id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ISaveTourRequest": {
+				"properties": {
+					"tourDestinations": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"tourParticipants": {
+						"type": "number",
+						"format": "double"
+					},
+					"tourBookingDate": {
+						"type": "string"
+					},
+					"tourBookingPerson": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"tourDestinations",
+					"tourParticipants",
+					"tourBookingDate",
+					"tourBookingPerson"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"jwt": {
+				"type": "http",
+				"scheme": "Bearer",
+				"name": "Authorization",
+				"in": "header"
+			},
+			"api_key": {
+				"type": "apiKey",
+				"name": "adminToken",
+				"in": "query"
+			}
+		}
+	},
+	"info": {
+		"title": "travel",
+		"version": "1.0.0",
+		"description": "We are going to build travel api",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {
+			"name": "author@gmail.com"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/buss/registerbuss": {
+			"post": {
+				"operationId": "SaveBuss",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ISaveBussResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "The user register the bus through this route",
+				"summary": "For register provide BussName and BusSeats",
+				"tags": [
+					"Buss"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ISaveBussRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/buss/allbuss": {
+			"get": {
+				"operationId": "Getallbuss",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/ISaveBussResponse"
+									},
+									"type": "array"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not Supported Operation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IBusErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "The user will see all the buss",
+				"summary": "Get all the Buss",
+				"tags": [
+					"Buss"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/buss/updatebuss": {
+			"put": {
+				"operationId": "UpdateBuss",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateBussResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not Supported Operation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IBusErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "The user update the bus through this route",
+				"summary": "For update provide the bus id, busname and bus seats. New if you want to update, if not provide the old one.",
+				"tags": [
+					"Buss"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IUpdateBussRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/buss/deletebuss": {
+			"delete": {
+				"operationId": "DeleteBuss",
+				"responses": {
+					"200": {
+						"description": "Product Deleted",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IDeleteBussResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "This route will be used  to delete the bus",
+				"summary": "For delete the specific buss please provide the id for that bus",
+				"tags": [
+					"Buss"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IDeleteBussRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tour/registertour": {
+			"post": {
+				"operationId": "SaveTour",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "This route is used to register the tour.",
+				"summary": "For register the tour provide the needed details",
+				"tags": [
+					"Tour"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ISaveTourRequest"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
